@@ -52,6 +52,9 @@
       if (canvas.getContext) {
         const ctx = canvas.getContext("2d");
 
+        //ctx.reset();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         for (f of misFiguras) {
           switch (f.constructor.name) {
             case "Circulo": {
@@ -87,7 +90,27 @@
     let animando = false;
     function animar() {
       animando = !animando;
+      if(animando)
+        setTimeout(desplazar, 10);
     }
+
+    function desplazar(){
+      if(animando){
+        desplazarFiguras();
+        dibujar();
+        setTimeout(desplazar, 10);
+      }
+    }
+
+    function desplazarFiguras(){
+      for(f of misFiguras){
+        f.posicion.px+=1;
+      }
+    }
+
+
+
+
   </script>
 </head>
 
