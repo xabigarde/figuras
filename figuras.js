@@ -1,15 +1,16 @@
 class Figura {
-  constructor(estilo, posicion) {
-    if(estilo == undefined){
-      estilo = new Estilo("white", "black", "solid", 1);
-    }
-    if(posicion == undefined){
+  constructor(posicion, estilo) {
+    if (posicion == undefined) {
       posicion = new Posicion(0, 0);
     }
-    if(! estilo instanceof Estilo){
+    if (estilo == undefined) {
+      estilo = new Estilo("white", "black", "solid", 1);
+    }
+
+    if (!estilo instanceof Estilo) {
       throw "ERROR FATAL: el estilo tiene que ser de la clase Estilo"
     }
-    if(! posicion instanceof Posicion){
+    if (!posicion instanceof Posicion) {
       throw "ERROR FATAL: la posicion tiene que ser de la clase Posicion"
     }
 
@@ -25,13 +26,13 @@ class Figura {
     return null;
   }
 
-  get centro (){
+  get centro() {
     return null;
   }
 }
 
-class Estilo{
-  constructor(colorRelleno, colorBorde, tipoBorde, grosorBorde){
+class Estilo {
+  constructor(colorRelleno, colorBorde, tipoBorde, grosorBorde) {
     this.colorRelleno = colorRelleno;
     this.colorBorde = colorBorde;
     this.tipoBorde = tipoBorde;
@@ -40,7 +41,7 @@ class Estilo{
 }
 
 class Posicion {
-  constructor (px, py){
+  constructor(px, py) {
     this.px = px;
     this.py = py;
   }
@@ -48,13 +49,13 @@ class Posicion {
 
 
 class Circulo extends Figura {
-  constructor(radio = 0, color) {
-    super(color);
+  constructor(radio = 0, posicion, estilo) {
+    super(posicion, estilo);
     this.radio = radio;
   }
 
-  get centro (){
-    return [this.posicion.px + this.radio, this.posicion.py+this.radio]
+  get centro() {
+    return [this.posicion.px + this.radio, this.posicion.py + this.radio]
   }
 
   area() {
@@ -65,20 +66,20 @@ class Circulo extends Figura {
     return 2 * Math.PI * this.radio;
   }
 
-  
+
 }
 
 class Rectangulo extends Figura {
-  constructor(alto = 0, ancho = 0, color) {
-    super(color);
+  constructor(alto = 0, ancho = 0, posicion, estilo) {
+    super(posicion, estilo);
     if (typeof (alto) != 'number' || typeof (ancho) != 'number')
       throw "Error Fatal: El alto y ancho tienen que ser números!";
     this.alto = alto;
     this.ancho = ancho;
   }
 
-  get centro (){
-    return [this.posicion.px + this.ancho/2, this.posicion.py+this.alto/2];
+  get centro() {
+    return [this.posicion.px + this.ancho / 2, this.posicion.py + this.alto / 2];
   }
 
   area() {
@@ -91,17 +92,17 @@ class Rectangulo extends Figura {
 }
 
 class Cuadrado extends Rectangulo {
-  constructor(lado, color) {
-    super(lado, lado, color);
+  constructor(lado, posicion, estilo) {
+    super(lado, lado, posicion, estilo);
   }
 }
 
-
+/*
 let miCirculo = new Circulo(10);
 let miRectangulo = new Rectangulo(2, 6);
 let miCuadrado = new Cuadrado(4);
 
-/*console.log(miCirculo.area());
+console.log(miCirculo.area());
 console.log(miCirculo.perimetro());
 
 console.log(miRectangulo.area() + "cm2");
@@ -109,10 +110,10 @@ console.log(miRectangulo.perimetro() + "cm");
 
 console.log(miCuadrado.area() + "cm2");
 console.log(miCuadrado.perimetro() + "cm");
-console.log(miCuadrado.color);*/
+console.log(miCuadrado.color);
 
 let estilo1 = new Estilo("red", "black", "solid", 1);
 
 console.log(miCirculo.centro);
 console.log(miRectangulo.centro);
-console.log(miCuadrado.centro);
+console.log(miCuadrado.centro);*/
