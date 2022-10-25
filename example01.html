@@ -13,26 +13,26 @@
       let figtype = document.getElementById("figType").value;
       let userInput = document.getElementById("userInput").value;
       let datos = userInput.split(",").map(Number);
-      if(!userInput){
+      if (!userInput) {
         window.alert("INTROCUDE UN VALOR!")
       }
-      switch(figtype){
-        case "circulo":{
-          let p = new Posicion(datos[1],datos[2]);
+      switch (figtype) {
+        case "circulo": {
+          let p = new Posicion(datos[1], datos[2]);
           let c = new Circulo(datos[0], p);
           misFiguras.push(c);
           break;
         }
-        case "cuadrado":{
+        case "cuadrado": {
           console.log("dibujar cuadrado");
-          let p = new Posicion(datos[1],datos[2]);
+          let p = new Posicion(datos[1], datos[2]);
           let c = new Cuadrado(datos[0], p);
           misFiguras.push(c);
           break;
         }
-        case "rectangulo":{
+        case "rectangulo": {
           console.log("dibujar rectangulo");
-          let p = new Posicion(datos[2],datos[3]);
+          let p = new Posicion(datos[2], datos[3]);
           let c = new Rectangulo(datos[0], datos[1], p);
           misFiguras.push(c);
           break;
@@ -41,12 +41,37 @@
           console.log("dibujar ??");
       }
 
-      imprimirFiguras();
+      //imprimirFiguras();
 
       const canvas = document.getElementById("canvas");
       if (canvas.getContext) {
         const ctx = canvas.getContext("2d");
 
+        for (f of misFiguras) {
+          switch (f.constructor.name) {
+            case "Circulo": {
+              ctx.beginPath();
+              ctx.ellipse(f.centro[0], f.centro[1], f.radio, f.radio, 2 * Math.PI, 0, 2 * Math.PI);
+              ctx.stroke();
+              break;
+            }
+            case "Rectangulo": {
+              ctx.fillStyle = "rgb(200, 0, 0)";
+              ctx.fillRect(f.centro[0], f.centro[1], f.alto, f.ancho);
+              break;
+            }
+            case "Cuadrado": {
+              ctx.fillStyle = "rgb(200, 0, 0)";
+              ctx.fillRect(f.centro[0], f.centro[1], f.alto, f.ancho);
+              break;
+            }
+            default:
+              console.log("ERROR: Figura no reconocida!")
+
+          }
+        }
+
+        /*
         ctx.fillStyle = "rgb(200, 0, 0)";
         ctx.fillRect(10, 10, 50, 50);
 
@@ -58,11 +83,12 @@
         //ctx.ellipse(100, 100, 50, 50, 0, 0, 0);
         ctx.ellipse(50 + 5, 50 + 5, 50, 50, 2 * Math.PI, 0, 2 * Math.PI);
         ctx.stroke();
+        */
       }
     }
 
-    function imprimirFiguras(){
-      for(f of misFiguras){
+    function imprimirFiguras() {
+      for (f of misFiguras) {
         console.log(f)
       }
     }
