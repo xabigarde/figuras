@@ -9,7 +9,7 @@
 
     let misFiguras = [];
 
-    function draw() {
+    function nuevaFiguraYDibujar() {
       let figtype = document.getElementById("figType").value;
       let userInput = document.getElementById("userInput").value;
       let datos = userInput.split(",").map(Number);
@@ -43,6 +43,11 @@
 
       //imprimirFiguras();
 
+      dibujar();
+
+    }
+
+    function dibujar() {
       const canvas = document.getElementById("canvas");
       if (canvas.getContext) {
         const ctx = canvas.getContext("2d");
@@ -70,20 +75,6 @@
 
           }
         }
-
-        /*
-        ctx.fillStyle = "rgb(200, 0, 0)";
-        ctx.fillRect(10, 10, 50, 50);
-
-        ctx.fillStyle = "rgb(0, 0, 200)";
-        ctx.fillRect(30, 30, 50, 50);
-
-
-        ctx.beginPath();
-        //ctx.ellipse(100, 100, 50, 50, 0, 0, 0);
-        ctx.ellipse(50 + 5, 50 + 5, 50, 50, 2 * Math.PI, 0, 2 * Math.PI);
-        ctx.stroke();
-        */
       }
     }
 
@@ -92,11 +83,16 @@
         console.log(f)
       }
     }
+
+    let animando = false;
+    function animar() {
+      animando = !animando;
+    }
   </script>
 </head>
 
 <body>
-  <button onclick="draw()" value="DIBUJAR!">DIBUJAR</button>
+  <button onclick="nuevaFiguraYDibujar()" value="DIBUJAR!">DIBUJAR</button>
   <form>
     <input id="userInput">
     <select id="figType" name="figures">
@@ -105,6 +101,8 @@
       <option value="rectangulo">Rectangulo</option>
     </select>
   </form>
+
+  <button onclick="animar()">ANIMAR</button>
 
   <br>
   <canvas id="canvas" width="1500" height="900" style="background-color:antiquewhite; border: solid black 1px"></canvas>
