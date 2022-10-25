@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figuras</title>
+</head>
+<body>
+  <h2>Ejemplo del uso de &lt;canvas&gt;</h2>
+  <button id="btnDibujar" value="Dibujar" onclick="dibujarFiguras()"></button>
+  <canvas id="miCanvas" width="1600px" height="800px" style="background-color: antiquewhite;">
+    Tu navegador no soporta &lt;canvas&gt;
+  </canvas>
+
+  <script src="figuras.js">
+    function dibujarFiguras(){
+      let canvas = document.getElementById("miCanvas");
+      let context = canvas.getContext('2d');
+      dibujarCuadrado(context);
+    }
+  </script>
+</body>
+</html>
