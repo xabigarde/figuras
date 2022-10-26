@@ -18,6 +18,14 @@ class Figura {
     this.posicion = posicion;
   }
 
+  anchura() {
+    return null;
+  }
+
+  altura() {
+    return null;
+  }
+
   area() {
     return null;
   }
@@ -58,6 +66,13 @@ class Circulo extends Figura {
     return [this.posicion.px + this.radio, this.posicion.py + this.radio]
   }
 
+  anchura() {
+    return this.radio * 2;
+  }
+  altura() {
+    return this.radio * 2;
+  }
+
   area() {
     return Math.PI ** 2 * this.radio;
   }
@@ -80,6 +95,13 @@ class Rectangulo extends Figura {
 
   get centro() {
     return [this.posicion.px + this.ancho / 2, this.posicion.py + this.alto / 2];
+  }
+
+  altura() {
+    return this.alto;
+  }
+  anchura() {
+    return this.ancho;
   }
 
   area() {
@@ -115,5 +137,5 @@ console.log(miCuadrado.color);
 let estilo1 = new Estilo("red", "black", "solid", 1);
 
 console.log(miCirculo.centro);
-console.log(miRectangulo.centro);
-console.log(miCuadrado.centro);*/
+console.log(miRectangulo.ancho);
+console.log(miCuadrado.altura());*/

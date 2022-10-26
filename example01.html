@@ -7,7 +7,9 @@
   <script src="figuras.js"></script>
   <script>
 
-    let misFiguras = [];
+    const misFiguras = [];
+    const FREQ_ANIMACION = 1; // unidad = ms
+
 
     function nuevaFiguraYDibujar() {
       let figtype = document.getElementById("figType").value;
@@ -87,25 +89,76 @@
       }
     }
 
-    let animando = false;
+
+    let animando = false; // flag de control
     function animar() {
       animando = !animando;
-      if(animando)
-        setTimeout(desplazar, 10);
+      if (animando)
+        setTimeout(desplazar, FREQ_ANIMACION);
     }
 
-    function desplazar(){
-      if(animando){
+    function desplazar() {
+      if (animando) {
         desplazarFiguras();
         dibujar();
-        setTimeout(desplazar, 10);
+        setTimeout(desplazar, FREQ_ANIMACION);
+        console.log("desplazar ha terminado!")
       }
     }
 
-    function desplazarFiguras(){
-      for(f of misFiguras){
-        f.posicion.px+=1;
+    let tocaMover = false;
+    let previous_x = 0;
+    let previous_y = 0;
+    let next_x = 0;
+    let next_y = 0;
+
+    function desplazarFiguras() {
+      if (tocaMover) {
+        for (f of misFiguras) {
+          next_x = generarProximaDirección(-1, 1)[0];
+          next_y = generarProximaDirección(-1, 1)[1];
+
+
+          f.posicion.px += next_x; // incrementar en 1 la posicion del eje X de esta figura F
+          f.posicion.py += next_y; // incrementar en 1 la posicion del eje X de esta figura F
+
+          if (f.posicion.px > 1500 - f.anchura()) {
+            f.posicion.px = 1500 - f.anchura();
+          }
+          if (f.posicion.px < 0 + f.anchura()) {
+            f.posicion.px = 0;
+          }
+          if (f.posicion.py > 800 - f.altura()) {
+            f.posicion.py = 800 - f.altura();
+          }
+          if (f.posicion.py < 0 + f.altura()) {
+            f.posicion.py = 0;
+          }
+
+        }
       }
+      tocaMover = !tocaMover;
+    }
+
+    function getRndInteger(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    /*
+        function getRndIntegerExceptCero(min, max) {
+          let result = Math.floor(Math.random() * (max - min + 1)) + min
+          if (result != 0)
+            return result;
+          return
+          getRndIntegerExceptCero(min, max);
+        }*/
+
+    function generarProximaDirección(current_x, current_y) {
+      next_x = getRndInteger(-1, 1);
+      next_y = getRndInteger(-1, 1);
+      if ((next_x != current_x && next_y != current_y))
+        return generarProximaDirección(current_x, current_y);
+      else
+        return [next_x, next_y];
     }
 
 
